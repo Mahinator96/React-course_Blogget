@@ -1,3 +1,4 @@
+export const URL_REDDIT = 'https://www.reddit.com';
 export const URL_API = 'https://oauth.reddit.com';
 export const URL_AUTH = 'https://www.reddit.com/api/v1/authorize?';
 export const CLIENT_ID = 'hhjyBMEAUUi_MZXz0J29cw';

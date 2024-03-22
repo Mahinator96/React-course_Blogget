@@ -1,7 +1,12 @@
 import style from './List.module.css';
 import Post from './Post';
+// import { useBestPosts } from '../../../hooks/useBestPosts';
+// import { useContext } from 'react';
 
-export const List = (props) => {
+export const List = () => {
+  // const posts = useBestPosts();
+  // console.log(posts);
+  // const { posts } = useContext(useBestPosts);
   const postsData = [
     {
       thumbnail: '',
@@ -36,9 +41,9 @@ export const List = (props) => {
       id: 123,
     },
   ];
-
   return (
     <ul className={style.list}>
+      {/* {console.log(postsData)} */}
       {postsData.map((postData) => (
         <Post key={postData.id} postData={postData} />
       ))}
