@@ -10,11 +10,10 @@ import Delete from './Delete';
 import style from './Post.module.css';
 
 export const Post = ({ postData }) => {
-  const { title, author, ups, date } = postData;
-
+  const { title, author, ups, created, thumbnail: src } = postData;
   return (
     <li className={style.post}>
-      <Thumbnail title={title} />
+      <Thumbnail title={title} src={src} />
 
       <Content title={title} author={author} />
 
@@ -22,7 +21,7 @@ export const Post = ({ postData }) => {
 
       <Rating ups={ups} />
 
-      <Time date={date} />
+      <Time date={created} />
     </li>
   );
 };

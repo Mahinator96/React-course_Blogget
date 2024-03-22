@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { URL_REDDIT } from '../api/const';
 
 export const useBestPosts = () => {
-  const [posts, setPosts] = useState({});
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     fetch(`${URL_REDDIT}/best.json?limit=4`)
