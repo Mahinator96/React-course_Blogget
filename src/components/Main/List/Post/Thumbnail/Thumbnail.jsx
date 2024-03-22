@@ -11,7 +11,6 @@ export const Thumbnail = ({ title, src }) => {
 
   return <img className={style.img} src={src} alt={title} />;
 };
-
 Thumbnail.propTypes = {
   title: PropTypes.string,
   src: PropTypes.string,
