@@ -5,21 +5,19 @@ import { authContext } from '../../../context/authContext';
 
 export const FormComment = (props) => {
   const { auth } = useContext(authContext);
-  const textareaRef = useRef(null);
+  const refTextarea = useRef(null);
   const handlerSubmit = (e) => {
     e.preventDefault();
-    console.log(textareaRef.current.value);
+    console.log(refTextarea.current.value);
   };
 
   return (
-    <form className={style.form}>
+    <form className={style.form} onSubmit={handlerSubmit}>
       <Text size={14} tsize={18}>
         {auth.name ? auth.name : 'Имя авторизованного пользователя'}
       </Text>
-      <textarea className={style.textarea} ref={textareaRef}></textarea>
-      <button className={style.btn} onClick={handlerSubmit}>
-        Отправить
-      </button>
+      <textarea className={style.textarea} ref={refTextarea}></textarea>
+      <button className={style.btn}>Отправить</button>
     </form>
   );
 };
