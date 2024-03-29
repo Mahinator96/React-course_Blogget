@@ -18,6 +18,5 @@ export const useBestPosts = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(posts);
   return [posts];
 };

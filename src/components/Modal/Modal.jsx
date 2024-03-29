@@ -5,14 +5,15 @@ import { ReactComponent as CloseIcon } from './img/close.svg';
 import Markdown from 'markdown-to-jsx';
 import { useEffect, useRef } from 'react';
 import { useCommentsData } from '../../hooks/useCommentsData';
+import { Comments } from './Comments/Comments';
+import { FormComment } from './FormComment/FormComment';
 
 export const Modal = ({ id, closeModal }) => {
   const overlayRef = useRef(null);
   const [modalContent, comments] = useCommentsData(id);
 
   // const { title, author, selftext: markdown } = modalContent;
-  console.log(modalContent);
-  console.log(comments);
+  // console.log(comments);
 
   // if (!markdown) {
   //   markdown = 'Описания к данному посту нет';
@@ -59,13 +60,21 @@ export const Modal = ({ id, closeModal }) => {
               },
             }}
           >
-            {!modalContent ? 'Загрузка...' : modalContent.selftext}
+            {!modalContent
+              ? 'Загрузка...'
+              : modalContent.selftext === ''
+              ? 'Нет описания к посту'
+              : modalContent.selftext}
           </Markdown>
         </div>
 
         <p className={style.author}>
           {!modalContent ? 'Загрузка...' : modalContent.author}
         </p>
+
+        <FormComment />
+
+        <Comments comments={comments} />
 
         <button className={style.close} onClick={() => {}}>
           <CloseIcon />

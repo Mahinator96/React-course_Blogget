@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import Thumbnail from './Thumbnail';
 import Content from './Content';
 import Rating from './Rating';
-import Time from './Time';
+
 import Delete from './Delete';
 
 import style from './Post.module.css';
+import Time from '../../../../UI/Time';
 
 export const Post = ({ id, postData }) => {
   const {

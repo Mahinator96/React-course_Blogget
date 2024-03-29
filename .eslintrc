@@ -111,7 +111,7 @@
     "eol-last": "error",
     "func-call-spacing": "error",
     "indent": [
-      "error",
+      "warn",
       2,
       {
         "CallExpression": {
@@ -163,7 +163,7 @@
         "const": "never"
       }
     ],
-    "operator-linebreak": ["error", "after"],
+    "operator-linebreak": ["warn", "before"],
     "padded-blocks": ["error", "never"],
     "quote-props": ["error", "consistent"],
     // "quotes": [
