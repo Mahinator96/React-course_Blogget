@@ -9,13 +9,20 @@ import Delete from './Delete';
 
 import style from './Post.module.css';
 
-export const Post = ({ postData }) => {
-  const { title, author, ups, created, thumbnail: src } = postData;
+export const Post = ({ id, postData }) => {
+  const {
+    title,
+    author,
+    ups,
+    created,
+    thumbnail: src,
+    selftext: markdown,
+  } = postData;
   return (
     <li className={style.post}>
       <Thumbnail title={title} src={src} />
 
-      <Content title={title} author={author} />
+      <Content title={title} author={author} markdown={markdown} id={id} />
 
       <Delete />
 
@@ -28,4 +35,5 @@ export const Post = ({ postData }) => {
 
 Post.propTypes = {
   postData: PropTypes.object,
+  id: PropTypes.string,
 };

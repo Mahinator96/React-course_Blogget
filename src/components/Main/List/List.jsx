@@ -11,7 +11,7 @@ export const List = () => {
       {posts.map((postData) => {
         const data = postData.data;
 
-        return <Post key={data.id} postData={data} />;
+        return <Post key={data.id} postData={data} id={data.id} />;
       })}
     </ul>
   );

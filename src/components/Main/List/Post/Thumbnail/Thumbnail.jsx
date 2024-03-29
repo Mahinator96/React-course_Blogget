@@ -5,6 +5,7 @@ import notphoto from '../img/notphoto.jpg';
 
 export const Thumbnail = ({ title, src }) => {
   // console.log(exists);
+
   if (!src.includes('https://')) {
     src = notphoto;
   }
@@ -15,4 +16,5 @@ Thumbnail.propTypes = {
   title: PropTypes.string,
   src: PropTypes.string,
   exists: PropTypes.number,
+  video: PropTypes.bool,
 };

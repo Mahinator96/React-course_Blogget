@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
-import { URL_REDDIT } from '../api/const';
+import { URL_API } from '../api/const';
 
 export const useBestPosts = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`${URL_REDDIT}/best.json?limit=4`)
-      .then((response) => response.json())
+    fetch(`${URL_API}/best.json?limit=4`)
+      .then((response) => {
+        if (response.status === 401) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
       .then((data) => {
         setPosts(data.data.children);
       })
