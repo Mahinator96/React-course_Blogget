@@ -24,7 +24,7 @@ export const Modal = ({ id, closeModal }) => {
 
     if (
       target === overlayRef.current ||
-      target.closest('button') ||
+      target.closest('button#btn_close-modal') ||
       e.key === 'Escape'
     ) {
       closeModal();
@@ -76,7 +76,7 @@ export const Modal = ({ id, closeModal }) => {
 
         <Comments comments={comments} />
 
-        <button className={style.close} onClick={() => {}}>
+        <button className={style.close} id='btn_close-modal' onClick={() => {}}>
           <CloseIcon />
         </button>
       </div>
