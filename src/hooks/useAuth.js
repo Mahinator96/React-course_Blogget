@@ -1,10 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { URL_API } from '../api/const';
-import { tokenContext } from '../context/tokenContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteToken } from '../store';
 
 export const useAuth = () => {
   const [auth, setAuth] = useState({});
-  const { token, delToken } = useContext(tokenContext);
+  const token = useSelector((state) => state.token);
+  const dispath = useDispatch();
   // Запрос на авторизацию
   useEffect(() => {
     if (!token) return;
@@ -32,7 +34,7 @@ export const useAuth = () => {
       .catch((err) => {
         console.error(err);
         setAuth({});
-        delToken();
+        dispath(deleteToken());
       });
   }, [token]);
 

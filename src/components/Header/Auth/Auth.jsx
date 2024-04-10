@@ -5,11 +5,15 @@ import { Text } from '../../../UI/Text';
 
 import { ReactComponent as LoginIcon } from './img/login.svg';
 import style from './Auth.module.css';
-import { tokenContext } from '../../../context/tokenContext';
+// import { tokenContext } from '../../../context/tokenContext';
 import { authContext } from '../../../context/authContext';
+import { useDispatch } from 'react-redux';
+import { deleteToken } from '../../../store';
 
 export const Auth = () => {
-  const { delToken } = useContext(tokenContext);
+  // const token = useSelector((state) => state.token);
+  const dispath = useDispatch();
+  // const { delToken } = useContext(tokenContext);
   const [showLogout, setShowLogout] = useState(false);
   const { auth, clearAuth } = useContext(authContext);
 
@@ -22,7 +26,8 @@ export const Auth = () => {
   };
 
   const logOut = () => {
-    delToken();
+    // delToken();
+    dispath(deleteToken);
     clearAuth();
   };
 
