@@ -1,32 +1,15 @@
-import { useEffect, useState } from 'react';
-import { URL_API } from '../api/const';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postDataRequestAsync } from '../store/postData/action';
 
 export const useCommentsData = (id) => {
-  const token = useSelector((state) => state.token);
-  const [comments, setComments] = useState(null);
-  const [modalContent, setModalContent] = useState(null);
+  const dispatch = useDispatch();
+  const content = useSelector((state) => state.postData.data);
 
   useEffect(() => {
-    fetch(`${URL_API}/comments/${id}.json?limit=4`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 401) {
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setModalContent(data[0].data.children[0].data);
-        setComments(data[1]);
-        // setComment(data.data.children);
-      })
-      .catch((err) => console.log(err));
+    dispatch(postDataRequestAsync(id));
   }, []);
 
   // console.log(posts);
-  return [modalContent, comments];
+  return [content];
 };

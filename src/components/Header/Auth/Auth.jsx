@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { authURL } from '../../../api/auth';
 import { Text } from '../../../UI/Text';
@@ -6,34 +6,38 @@ import { Text } from '../../../UI/Text';
 import { ReactComponent as LoginIcon } from './img/login.svg';
 import style from './Auth.module.css';
 // import { tokenContext } from '../../../context/tokenContext';
-import { authContext } from '../../../context/authContext';
 import { useDispatch } from 'react-redux';
-import { deleteToken } from '../../../store';
+import { deleteToken } from '../../../store/tokenReducer';
+import { useAuth } from '../../../hooks/useAuth';
+import Preloader from '../../../UI/Preloader';
 
 export const Auth = () => {
   // const token = useSelector((state) => state.token);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   // const { delToken } = useContext(tokenContext);
   const [showLogout, setShowLogout] = useState(false);
-  const { auth, clearAuth } = useContext(authContext);
+  const [auth, loading, clearAuth] = useAuth();
 
   /* Показать кнопку 'Выйти' при нажитии на аватар,
   если зарегестрирован пользователь */
   const getOut = () => {
     if (auth) {
-      setShowLogout(!showLogout);
+      setShowLogout(true);
     }
   };
 
   const logOut = () => {
     // delToken();
-    dispath(deleteToken);
+    setShowLogout(false);
+    dispatch(deleteToken());
     clearAuth();
   };
 
   return (
     <div className={style.container}>
-      {auth.name ? (
+      {loading ? (
+        <Preloader size={30} />
+      ) : auth.name ? (
         <button className={style.btn} onClick={getOut}>
           <img
             className={style.img}
