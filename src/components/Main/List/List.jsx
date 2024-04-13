@@ -1,18 +1,19 @@
 // import { useSelector } from 'react-redux';
 import style from './List.module.css';
-import { useBestPosts } from '../../../hooks/useBestPosts';
 import Post from './Post';
 import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { bestPostRequestAsync } from '../../../store/bestPost/action';
 
 export const List = () => {
-  const [posts] = useBestPosts();
+  const posts = useSelector((state) => state.bestPost.posts);
   const endList = useRef(null);
+  const dispath = useDispatch();
 
   useEffect(() => {
-    if (!posts.length) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) console.log('see see');
+        if (entries[0].isIntersecting) dispath(bestPostRequestAsync());
       },
       { rootMargin: '100px' }
     );

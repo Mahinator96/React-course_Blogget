@@ -4,6 +4,7 @@ import { URL_API } from '../../api/const';
 export const BESTPOST_REQUEST = 'BESTPOST_REQUEST';
 export const BESTPOST_REQUEST_SUCCESS = 'BESTPOST_REQUEST_SUCCESS';
 export const BESTPOST_REQUEST_ERROR = 'BESTPOST_REQUEST_ERROR';
+export const BESTPOST_REQUEST_SUCCESS_AFTER = 'BESTPOST_REQUEST_SUCCESS_AFTER';
 
 export const bestPostRequest = () => ({
   type: BESTPOST_REQUEST,
@@ -16,6 +17,12 @@ export const bestPostRequestSuccess = (data) => ({
   after: data.after,
 });
 
+export const bestPostRequestSuccessAfter = (data) => ({
+  type: BESTPOST_REQUEST_SUCCESS_AFTER,
+  posts: data.children,
+  after: data.after,
+});
+
 export const bestPostRequestError = (error) => ({
   type: BESTPOST_REQUEST_ERROR,
   error,
@@ -24,8 +31,10 @@ export const bestPostRequestError = (error) => ({
 export const bestPostRequestAsync = () => (dispatch, getState) => {
   const token = getState().token.token;
   const after = getState().bestPost.after;
+  const loading = getState().bestPost.loading;
+  const isLast = getState().bestPost.isLast;
 
-  if (!token) return;
+  if (!token || loading || isLast) return;
 
   dispatch(bestPostRequest());
 
@@ -35,8 +44,11 @@ export const bestPostRequestAsync = () => (dispatch, getState) => {
     },
   })
     .then(({ data }) => {
-      // console.log(data);
-      dispatch(bestPostRequestSuccess(data.data));
+      if (after) {
+        dispatch(bestPostRequestSuccessAfter(data.data));
+      } else {
+        dispatch(bestPostRequestSuccess(data.data));
+      }
     })
     .catch((err) => {
       console.log(err);
