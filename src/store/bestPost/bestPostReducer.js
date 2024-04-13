@@ -6,8 +6,9 @@ import {
 
 const initialState = {
   loading: true,
-  data: {},
+  posts: [],
   error: '',
+  after: '',
 };
 
 export const bestPostReducer = (state = initialState, action) => {
@@ -22,8 +23,9 @@ export const bestPostReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: action.data,
+        posts: action.posts,
         error: '',
+        after: action.after,
       };
 
     case BESTPOST_REQUEST_ERROR:

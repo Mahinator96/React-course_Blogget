@@ -2,32 +2,33 @@
 import style from './List.module.css';
 import { useBestPosts } from '../../../hooks/useBestPosts';
 import Post from './Post';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
 
 export const List = () => {
-  // const posts = useSelector((state) => state.bestPost.data);
-  const [posts, loading] = useBestPosts();
-  const token = useSelector((state) => state.token.token);
+  const [posts] = useBestPosts();
+  const endList = useRef(null);
 
-  // console.log(posts);
-  // console.log(loading);
+  useEffect(() => {
+    if (!posts.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) console.log('see see');
+      },
+      { rootMargin: '100px' }
+    );
+
+    observer.observe(endList.current);
+  }, [endList.current]);
 
   return (
     <ul className={style.list}>
-      {/* {console.log(posts)} */}
-      {/* {loading ? console.log(loading) : console.log(posts)} */}
-      {!token ? (
-        <p>Authorization</p>
-      ) : loading ? (
-        <p>load...</p>
-      ) : (
-        posts.map((postData) => {
-          const data = postData.data;
+      {posts.map((postData) => {
+        const data = postData.data;
 
-          return <Post key={data.id} postData={data} id={data.id} />;
-        })
-      )}
-      {/* {console.log('bestPosts: ', posts)} */}
+        return <Post key={data.id} postData={data} id={data.id} />;
+      })}
+
+      <li className={style.end} ref={endList}></li>
     </ul>
   );
 };

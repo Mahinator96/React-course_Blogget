@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export const useBestPosts = () => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.bestPost.data);
+  const posts = useSelector((state) => state.bestPost.posts);
   const loading = useSelector((state) => state.bestPost.loading);
 
   useEffect(() => {

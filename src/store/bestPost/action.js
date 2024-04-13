@@ -12,7 +12,8 @@ export const bestPostRequest = () => ({
 
 export const bestPostRequestSuccess = (data) => ({
   type: BESTPOST_REQUEST_SUCCESS,
-  data,
+  posts: data.children,
+  after: data.after,
 });
 
 export const bestPostRequestError = (error) => ({
@@ -22,15 +23,20 @@ export const bestPostRequestError = (error) => ({
 
 export const bestPostRequestAsync = () => (dispatch, getState) => {
   const token = getState().token.token;
+  const after = getState().bestPost.after;
 
   if (!token) return;
 
   dispatch(bestPostRequest());
 
-  axios(`${URL_API}/best.json?limit=4`)
-    .then(({ data: { data } }) => {
+  axios(`${URL_API}/best.json?limit=10&${after ? `after=${after}` : ''}`, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  })
+    .then(({ data }) => {
       // console.log(data);
-      dispatch(bestPostRequestSuccess(data.children));
+      dispatch(bestPostRequestSuccess(data.data));
     })
     .catch((err) => {
       console.log(err);
