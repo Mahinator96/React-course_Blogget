@@ -5,6 +5,7 @@ export const BESTPOST_REQUEST = 'BESTPOST_REQUEST';
 export const BESTPOST_REQUEST_SUCCESS = 'BESTPOST_REQUEST_SUCCESS';
 export const BESTPOST_REQUEST_ERROR = 'BESTPOST_REQUEST_ERROR';
 export const BESTPOST_REQUEST_SUCCESS_AFTER = 'BESTPOST_REQUEST_SUCCESS_AFTER';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 
 export const bestPostRequest = () => ({
   type: BESTPOST_REQUEST,
@@ -28,7 +29,18 @@ export const bestPostRequestError = (error) => ({
   error,
 });
 
-export const bestPostRequestAsync = () => (dispatch, getState) => {
+export const changePage = (page) => ({
+  type: CHANGE_PAGE,
+  page,
+});
+
+export const bestPostRequestAsync = (newPage) => (dispatch, getState) => {
+  let page = getState().bestPost.page;
+
+  if (newPage) {
+    page = newPage;
+    dispatch(changePage(page));
+  }
   const token = getState().token.token;
   const after = getState().bestPost.after;
   const loading = getState().bestPost.loading;
@@ -38,7 +50,7 @@ export const bestPostRequestAsync = () => (dispatch, getState) => {
 
   dispatch(bestPostRequest());
 
-  axios(`${URL_API}/best.json?limit=10&${after ? `after=${after}` : ''}`, {
+  axios(`${URL_API}/${page}.json?limit=10&${after ? `after=${after}` : ''}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },

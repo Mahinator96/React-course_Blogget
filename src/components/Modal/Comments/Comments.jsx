@@ -8,6 +8,9 @@ export const Comments = ({ comments }) => (
       ? 'Загрузка'
       : comments.data.children
       ? comments.data.children.map((comment) => {
+          {
+            /* console.log(comment.data); */
+          }
           if (comment.kind === 'more') {
             return;
           } else {

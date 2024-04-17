@@ -9,8 +9,11 @@ import { Comments } from './Comments/Comments';
 import { FormComment } from './FormComment/FormComment';
 import { useSelector } from 'react-redux';
 import Preloader from '../../UI/Preloader';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export const Modal = ({ id, closeModal }) => {
+export const Modal = () => {
+  const { id, page } = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
   const status = useSelector((state) => state.postData.status);
   const [content] = useCommentsData(id);
@@ -27,21 +30,27 @@ export const Modal = ({ id, closeModal }) => {
     const target = e.target;
 
     if (
-      target === overlayRef.current ||
-      target.closest('button#btn_close-modal') ||
-      e.key === 'Escape'
+      target === overlayRef.current
+      // target.closest('button#btn_close-modal') ||
+      // e.key === 'Escape'
     ) {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
   useEffect(() => {
+    // document.addEventListener('click', handleClick);
+    // document.addEventListener('keydown', handleClick);
+
+    // return () => {
+    //   document.removeEventListener('click', handleClick);
+    //   document.removeEventListener('keydown', handleClick);
+    // };
+
     document.addEventListener('click', handleClick);
-    document.addEventListener('keydown', handleClick);
 
     return () => {
       document.removeEventListener('click', handleClick);
-      document.removeEventListener('keydown', handleClick);
     };
   }, []);
 
@@ -90,7 +99,9 @@ export const Modal = ({ id, closeModal }) => {
             <button
               className={style.close}
               id='btn_close-modal'
-              onClick={() => {}}
+              onClick={() => {
+                navigate(`/category/${page}`);
+              }}
             >
               <CloseIcon />
             </button>
