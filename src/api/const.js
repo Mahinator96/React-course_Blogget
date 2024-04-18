@@ -5,6 +5,6 @@ export const CLIENT_ID = 'hhjyBMEAUUi_MZXz0J29cw';
 export const RESPONSE_TYPE = 'token';
 // то что будет отображаться в адресной строке
 export const RANDOM_STRING = 'random_string';
-export const REDIRECT_URI = 'https://react-course-blogget.vercel.app/auth';
+export const REDIRECT_URI = `https://react-course-blogget.vercel.app/auth`;
 // Доступы пользователя
 export const SCOPE = 'identity submit read';
