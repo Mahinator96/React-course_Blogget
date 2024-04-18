@@ -15,6 +15,7 @@ export const Main = (props) => (
 
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/auth' element={<Home />} />
         <Route path='*' element={<NotFountPage />} />
         <Route path='/category/:page' element={<List />}>
           <Route path='post/:id' element={<Modal />} />
