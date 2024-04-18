@@ -16,15 +16,15 @@ export const Modal = () => {
   const navigate = useNavigate();
   const overlayRef = useRef(null);
   const status = useSelector((state) => state.postData.status);
-  const [content] = useCommentsData(id);
+  const [content, comments] = useCommentsData(id);
 
   let modalContent = 'Пусто';
-  let comments = 'Пусто';
 
-  if (status === 'load') {
-    modalContent = content.modalContent;
-    comments = content.comments;
+  if (status === 'loaded') {
+    modalContent = content;
   }
+
+  // console.log(modalContent);
 
   const handleClick = (e) => {
     const target = e.target;
@@ -59,14 +59,9 @@ export const Modal = () => {
       <div className={style.modal}>
         {status === 'loading' && <Preloader size={200} />}
         {status === 'error' && 'Ошибка...'}
-        {status === 'load' && (
+        {status === 'loaded' && (
           <>
-            {/* // const modalContent = modalContent;
-  // const comments = content[1]; */}
-            <h2 className={style.title}>
-              {console.log}
-              {!modalContent ? 'Загрузка...' : modalContent.title}
-            </h2>
+            <h2 className={style.title}>{modalContent.title}</h2>
 
             <div className={style.content}>
               <Markdown
@@ -80,16 +75,14 @@ export const Modal = () => {
                   },
                 }}
               >
-                {!modalContent
-                  ? 'Загрузка...'
-                  : modalContent.selftext === ''
+                {modalContent.selftext === ''
                   ? 'Нет описания к посту'
                   : modalContent.selftext}
               </Markdown>
             </div>
 
             <p className={style.author}>
-              {!modalContent ? 'Загрузка...' : modalContent.author}
+              {!modalContent.author ? 'Аноним' : modalContent.author}
             </p>
 
             <FormComment />
@@ -118,4 +111,5 @@ Modal.propTypes = {
   author: PropTypes.string,
   markdown: PropTypes.string,
   closeModal: PropTypes.func,
+  // comments: PropTypes.array,
 };

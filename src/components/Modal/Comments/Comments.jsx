@@ -6,20 +6,20 @@ export const Comments = ({ comments }) => (
   <ul className={style.list}>
     {!comments
       ? 'Загрузка'
-      : comments.data.children
-      ? comments.data.children.map((comment) => {
+      : comments
+      ? comments.map((comment) => {
           {
-            /* console.log(comment.data); */
+            console.log(comment);
           }
           if (comment.kind === 'more') {
             return;
           } else {
             return (
               <ItemComments
-                key={comment.data.id}
-                author={comment.data.author}
-                content={comment.data.body}
-                date={comment.data.created}
+                key={comment.id}
+                author={comment.author}
+                content={comment.body}
+                date={comment.created}
               />
             );
           }
@@ -29,5 +29,5 @@ export const Comments = ({ comments }) => (
 );
 
 Comments.propTypes = {
-  comments: PropTypes.object,
+  comments: PropTypes.array,
 };

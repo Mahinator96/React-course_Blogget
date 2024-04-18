@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Text } from '../../../../UI/Text';
-import Date from '../../../../UI/Time';
+// import Date from '../../../../UI/Time';
 import style from './ItemComments.module.css';
 
 export const ItemComments = ({ author, content, date }) => (
@@ -12,7 +12,7 @@ export const ItemComments = ({ author, content, date }) => (
       {content}
     </Text>
 
-    <Date date={date} />
+    {/* <Date date={date} /> */}
   </li>
 );
 

@@ -1,4 +1,5 @@
 const formatDate = (date) => {
+  // console.log(date);
   const d = date * 1000;
   const options = {
     year: 'numeric',
